@@ -1,0 +1,117 @@
+/* css/style.css — Rain Screen Panel Visualization — LIGHT theme. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #eef1f4;
+  --panel:     rgba(255, 255, 255, 0.94);
+  --panel-bd:  #d2d8de;
+  --ink:       #1d2733;
+  --muted:     #5d6b7a;
+  --accent:    #2f74d0;
+  --ext:       #e07a1c;
+  --int:       #2f74d0;
+  --btn:       #f4f6f8;
+  --btn-h:     #e6ebf0;
+  --btn-on:    #2f74d0;
+  --shadow:    0 4px 18px rgba(40, 60, 90, 0.16);
+  --radius:    9px;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+#scene { display: block; width: 100vw; height: 100vh; }
+
+.panel {
+  position: fixed;
+  background: var(--panel);
+  border: 1px solid var(--panel-bd);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+/* ---- title ---- */
+#title {
+  top: 16px; left: 50%; transform: translateX(-50%);
+  padding: 9px 22px; text-align: center; pointer-events: none;
+}
+#title h1 { font-size: 0.96rem; font-weight: 700; letter-spacing: 0.01em; }
+#title p  { font-size: 0.70rem; color: var(--muted); margin-top: 2px; }
+
+/* ---- controls ---- */
+#controls { top: 16px; left: 16px; padding: 13px; width: 198px; }
+#controls h2 {
+  font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--accent);
+  margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1px solid var(--panel-bd);
+}
+.btn {
+  display: block; width: 100%; margin-bottom: 6px; padding: 8px 11px;
+  background: var(--btn); border: 1px solid var(--panel-bd);
+  border-radius: 6px; color: var(--ink);
+  font-size: 0.78rem; font-family: inherit; cursor: pointer; text-align: left;
+  transition: background 0.14s, border-color 0.14s, color 0.14s;
+}
+.btn:hover  { background: var(--btn-h); border-color: var(--accent); }
+.btn.on     { background: var(--btn-on); border-color: var(--btn-on); color: #fff; }
+.btn:last-child { margin-bottom: 0; }
+
+/* ---- legend ---- */
+#legend { bottom: 16px; left: 16px; padding: 12px 14px; width: 220px; }
+#legend h3 {
+  font-size: 0.64rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--accent); margin-bottom: 9px;
+}
+.leg-row { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 8px; }
+.leg-dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 1px; flex-shrink: 0; }
+.leg-row b { font-size: 0.74rem; font-weight: 600; }
+.leg-row small { display: block; color: var(--muted); font-size: 0.66rem; margin-top: 1px; }
+.leg-note {
+  margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--panel-bd);
+  font-size: 0.66rem; color: var(--muted); line-height: 1.5;
+}
+
+/* ---- sensor info panel ---- */
+#info {
+  top: 50%; right: 16px; transform: translateY(-50%);
+  width: 256px; padding: 15px;
+  opacity: 0; pointer-events: none; transition: opacity 0.18s;
+}
+#info.show { opacity: 1; pointer-events: auto; }
+#info-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 11px; padding-bottom: 9px; border-bottom: 1px solid var(--panel-bd);
+}
+#info-id-wrap { display: flex; align-items: center; gap: 9px; }
+#info-dot { width: 15px; height: 15px; border-radius: 50%; }
+#info-id { font-size: 0.92rem; font-weight: 700; }
+#info-close {
+  background: none; border: none; color: var(--muted);
+  font-size: 1.15rem; cursor: pointer; line-height: 1;
+}
+#info-close:hover { color: var(--ink); }
+.info-row { display: grid; grid-template-columns: 74px 1fr; gap: 4px 9px; margin-bottom: 6px; }
+.info-k { color: var(--muted); font-size: 0.70rem; font-weight: 600; }
+.info-v { color: var(--ink); font-size: 0.72rem; word-break: break-word; }
+#info-measures { margin-top: 9px; font-size: 0.70rem; color: var(--muted); line-height: 1.5; }
+
+/* ---- reference image ---- */
+#ref-image { bottom: 16px; right: 16px; width: 320px; padding: 6px; display: none; }
+#ref-image.show { display: block; }
+#ref-image img { width: 100%; border-radius: 5px; display: block; }
+#ref-image p { font-size: 0.62rem; color: var(--muted); text-align: center; padding: 4px 0 1px; }
+
+/* ---- hint ---- */
+#hint {
+  bottom: 14px; left: 50%; transform: translateX(-50%);
+  padding: 6px 14px; font-size: 0.66rem; color: var(--muted);
+  pointer-events: none;
+}

@@ -1,0 +1,14 @@
+[
+  { "id": "EXT-01", "label": "Exterior upper left",   "side": "exterior", "x": -0.3810, "y":  0.7620 },
+  { "id": "EXT-02", "label": "Exterior upper centre", "side": "exterior", "x":  0.0000, "y":  0.7620 },
+  { "id": "EXT-03", "label": "Exterior upper right",  "side": "exterior", "x":  0.3810, "y":  0.7620 },
+  { "id": "EXT-04", "label": "Exterior middle left",  "side": "exterior", "x": -0.3810, "y":  0.0000 },
+  { "id": "EXT-05", "label": "Exterior centre",       "side": "exterior", "x":  0.0000, "y":  0.0000 },
+  { "id": "EXT-06", "label": "Exterior middle right", "side": "exterior", "x":  0.3810, "y":  0.0000 },
+  { "id": "EXT-07", "label": "Exterior lower left",   "side": "exterior", "x": -0.3810, "y": -0.7620 },
+  { "id": "EXT-08", "label": "Exterior lower centre", "side": "exterior", "x":  0.0000, "y": -0.7620 },
+  { "id": "EXT-09", "label": "Exterior lower right",  "side": "exterior", "x":  0.3810, "y": -0.7620 },
+  { "id": "INT-01", "label": "Interior upper",        "side": "interior", "x":  0.0000, "y":  0.7620 },
+  { "id": "INT-02", "label": "Interior centre",       "side": "interior", "x":  0.0000, "y":  0.0000 },
+  { "id": "INT-03", "label": "Interior lower",        "side": "interior", "x":  0.0000, "y": -0.7620 }
+]
