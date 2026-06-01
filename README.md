@@ -1,17 +1,12 @@
-# Rain Screen Panel 3D Visualization
+# Rain Screen Visualization
 
-Static Three.js visualization of a single rain screen mock-up panel mounted on a transparent house context.
+Static Three.js visualization of the WSU NET/PACCAR module and rain screen test panel.
 
 ## What It Shows
 
-- One **4 ft x 8 ft** rain screen panel, modeled as **48 in wide x 96 in high**.
-- Real trapezoidal vertical corrugation geometry: **6 in pitch**, **8 ribs across the panel**, approximately **1.5 in peak-to-valley depth**.
-- Matte, low-reflectivity OSB-style material with a subtle procedural wood-strand texture.
-- A semi-transparent gable-roof house shell so exterior and interior sides are both readable.
-- **12 clickable sensors**:
-  - 9 exterior sensors in a 3 x 3 grid on the weather-facing surface.
-  - 3 interior sensors in a centered vertical column on the building-side surface.
-  - Every sensor measures wind speed, humidity, and temperature.
+- **Module view** (`index.html`): STEP-derived PACCAR module shell, approximately **5.986 m L x 3.363 m D x 2.896 m H**, with 2 rain-screen panels on the north wall, 4 panels on the south wall, an opacity slider, panel/sensor toggles, and a compass.
+- **Panel view** (`panel.html`): one **4 ft x 8 ft** OSB rain screen panel with trapezoidal vertical corrugations and the 12-sensor pattern.
+- Every sensor measures wind speed, humidity, and temperature.
 
 ## Run Locally
 
@@ -25,12 +20,11 @@ No build step is required. The site uses vendored Three.js modules under `vendor
 
 ## Controls
 
-- **Reset view** returns the camera to the default exterior perspective.
-- **Ghost the panel** makes the OSB panel semi-transparent so the interior sensors are easier to see.
-- **Sensor labels** toggles 3D sensor ID labels.
-- **Design drawing** toggles the CAD reference image overlay.
+- Top navigation switches between **Module** and **Panel**.
+- Module view: shell opacity slider, reset view, panel toggle, sensor toggle.
+- Panel view: reset view, panel transparency, sensor labels, design drawing overlay.
 
-Click any sensor marker to open the sensor information panel.
+In panel view, click any sensor marker to open the sensor information panel.
 
 ## `data/sensors.json` Schema
 

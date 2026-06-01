@@ -3,11 +3,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import {
-  BG_COLOR, CAM_START, CAM_TARGET,
-  PANEL_FRONT_Z, PANEL_BACK_Z, PANEL_CENTER_Y,
+  BG_COLOR, MODULE_PANEL_Y, MODULE_SOUTH_Z, PANEL_DEPTH,
 } from './config.js';
-import { buildGround, buildHouse, buildPanel, makeTextSprite } from './geometry.js';
-import { getSensorRecords, loadSensors, pickSensor, setSensorLabels } from './sensors.js';
+import { buildGround, makeTextSprite } from './geometry.js';
+import { buildModuleShell } from './moduleGeometry.js';
+import { createPanelWithSensors } from './panelAssembly.js';
+import { getSensorRecords, pickSensor, setSensorLabels } from './sensors.js';
 import { tween } from './animations.js';
 
 const canvas = document.getElementById('scene');
@@ -48,7 +49,9 @@ async function start(renderer) {
 
   const camera = new THREE.PerspectiveCamera(
     46, window.innerWidth / window.innerHeight, 0.1, 200);
-  camera.position.set(CAM_START.x, CAM_START.y, CAM_START.z);
+  const camStart = { x: 2.55, y: 1.95, z: -4.05 };
+  const camTarget = { x: 0.0, y: MODULE_PANEL_Y, z: MODULE_SOUTH_Z - 0.12 };
+  camera.position.set(camStart.x, camStart.y, camStart.z);
 
   // ---- lights : strong raking key light makes the rib relief read ----
   scene.add(new THREE.HemisphereLight(0xffffff, 0xd2d6da, 0.50));
@@ -71,23 +74,25 @@ async function start(renderer) {
 
   // ---- geometry ----
   scene.add(buildGround());
-  scene.add(buildHouse());
-  const { group: panelGroup, panelMesh } = buildPanel();
+  scene.add(buildModuleShell({ opacity: 0.25, includeOpenings: true }));
+  const { group: panelGroup, panelMesh } = await createPanelWithSensors();
+  panelGroup.name = 'singleSouthPanel';
+  panelGroup.position.set(0, MODULE_PANEL_Y, MODULE_SOUTH_Z - PANEL_DEPTH / 2 - 0.035);
+  panelGroup.rotation.y = Math.PI;
   scene.add(panelGroup);
-  await loadSensors(panelGroup);
 
   // ---- EXTERIOR / INTERIOR side labels (spatially separated) ----
   const extLabel = makeTextSprite('EXTERIOR (weather side)',
     { fontSize: 46, color: '#9a4a10', border: '#e07a1c' });
   sizeLabel(extLabel, 0.92);
-  extLabel.position.set(1.05, PANEL_CENTER_Y + 1.45, PANEL_FRONT_Z + 0.30);
-  scene.add(extLabel);
+  extLabel.position.set(-1.05, 1.45, PANEL_DEPTH / 2 + 0.36);
+  panelGroup.add(extLabel);
 
   const intLabel = makeTextSprite('INTERIOR (building side)',
     { fontSize: 46, color: '#1d4e8c', border: '#2f74d0' });
   sizeLabel(intLabel, 0.92);
-  intLabel.position.set(-1.05, PANEL_CENTER_Y - 1.05, PANEL_BACK_Z - 0.35);
-  scene.add(intLabel);
+  intLabel.position.set(1.05, -1.02, -PANEL_DEPTH / 2 - 0.36);
+  panelGroup.add(intLabel);
 
   // ---- controls ----
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -98,7 +103,7 @@ async function start(renderer) {
   controls.minDistance = 2.6;
   controls.maxDistance = 22;
   controls.maxPolarAngle = Math.PI * 0.495;
-  controls.target.set(CAM_TARGET.x, CAM_TARGET.y, CAM_TARGET.z);
+  controls.target.set(camTarget.x, camTarget.y, camTarget.z);
   controls.update();
 
   // ---- UI ----
@@ -142,8 +147,8 @@ async function start(renderer) {
     controls.autoRotate = false;
     tween({
       from: { px: fp.x, py: fp.y, pz: fp.z, tx: ft.x, ty: ft.y, tz: ft.z },
-      to:   { px: CAM_START.x, py: CAM_START.y, pz: CAM_START.z,
-              tx: CAM_TARGET.x, ty: CAM_TARGET.y, tz: CAM_TARGET.z },
+      to:   { px: camStart.x, py: camStart.y, pz: camStart.z,
+              tx: camTarget.x, ty: camTarget.y, tz: camTarget.z },
       onUpdate: (c) => {
         camera.position.set(c.px, c.py, c.pz);
         controls.target.set(c.tx, c.ty, c.tz);

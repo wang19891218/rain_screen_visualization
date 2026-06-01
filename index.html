@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rain Screen Panel — 3D Visualization</title>
+<title>PACCAR Module — Rain Screen Visualization</title>
 <link rel="icon" href="data:," />
 <link rel="stylesheet" href="css/style.css" />
 <script type="importmap">
@@ -16,56 +16,52 @@
 </script>
 </head>
 <body>
+<nav id="top-nav">
+  <a class="active" href="./index.html">Module</a>
+  <a href="./panel.html">Panel</a>
+</nav>
 
 <canvas id="scene"></canvas>
 
 <div id="title" class="panel">
-  <h1>Rain Screen Test Panel — 3D Visualization</h1>
-  <p>One 4&nbsp;ft &times; 8&nbsp;ft corrugated OSB panel &middot; 12 sensors &middot; mounted on a test house</p>
+  <h1>WSU NET PACCAR Module</h1>
+  <p id="module-dims">STEP-derived shell dimensions loading...</p>
 </div>
 
 <div id="controls" class="panel">
-  <h2>View Controls</h2>
-  <button id="btn-reset"  class="btn">&#8635;&nbsp; Reset view</button>
-  <button id="btn-ghost"  class="btn">&#9673;&nbsp; Ghost the panel</button>
-  <button id="btn-labels" class="btn">&#9750;&nbsp; Sensor labels</button>
-  <button id="btn-ref"    class="btn">&#9744;&nbsp; Design drawing</button>
+  <h2>Module Controls</h2>
+  <label class="range-row" for="alpha-slider">
+    <span>Shell opacity</span>
+    <b id="alpha-value">78%</b>
+  </label>
+  <input id="alpha-slider" type="range" min="0" max="100" value="78" />
+  <button id="btn-reset" class="btn">&#8635;&nbsp; Reset view</button>
+  <button id="btn-panels" class="btn on">&#9635;&nbsp; Panels</button>
+  <button id="btn-sensors" class="btn on">&#9679;&nbsp; Sensors</button>
+  <label class="check-row">
+    <input id="chk-dimensions" type="checkbox" />
+    <span>Dimensions</span>
+  </label>
 </div>
 
 <div id="legend" class="panel">
-  <h3>Sensors &mdash; 12 total</h3>
+  <h3>Module Layout</h3>
+  <div class="leg-row">
+    <div class="leg-dot" style="background:#7a4a34"></div>
+    <div><b>Rain screen panels</b><small>2 north wall, 4 south wall</small></div>
+  </div>
   <div class="leg-row">
     <div class="leg-dot" style="background:#e07a1c"></div>
-    <div><b>Exterior &mdash; 9</b><small>3 &times; 3 grid, weather-facing face</small></div>
+    <div><b>Exterior sensors</b><small>representative south panel</small></div>
   </div>
   <div class="leg-row">
     <div class="leg-dot" style="background:#2f74d0"></div>
-    <div><b>Interior &mdash; 3</b><small>vertical column, building-side face</small></div>
-  </div>
-  <div class="leg-note">
-    Every sensor measures wind speed, humidity and temperature.
-    Click a sensor marker for details.
+    <div><b>Interior sensors</b><small>centred vertical column</small></div>
   </div>
 </div>
 
-<div id="info" class="panel">
-  <div id="info-head">
-    <div id="info-id-wrap"><div id="info-dot"></div><span id="info-id">&mdash;</span></div>
-    <button id="info-close" title="Close">&times;</button>
-  </div>
-  <div class="info-row"><span class="info-k">Label</span><span class="info-v" id="info-label">&mdash;</span></div>
-  <div class="info-row"><span class="info-k">Side</span><span class="info-v" id="info-side">&mdash;</span></div>
-  <div class="info-row"><span class="info-k">Position</span><span class="info-v" id="info-pos">&mdash;</span></div>
-  <div id="info-measures">&mdash;</div>
-</div>
+<div id="hint" class="panel">Drag to orbit &middot; scroll to zoom</div>
 
-<div id="ref-image" class="panel">
-  <img src="assets/design_map.jpg" alt="Rain screen panel design drawing" />
-  <p>Reference: rain screen panel design drawing</p>
-</div>
-
-<div id="hint" class="panel">Drag to orbit &middot; scroll to zoom &middot; click a sensor</div>
-
-<script type="module" src="js/main.js"></script>
+<script type="module" src="js/module-view.js"></script>
 </body>
 </html>

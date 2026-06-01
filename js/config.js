@@ -25,15 +25,26 @@ export const SHEET_T      = 0.55 * INCH;              // panel sheet thickness
 export const PANEL_DEPTH  = RIB_DEPTH + SHEET_T;      // 0.0521 m
 
 // ----------------------------------------------------------------------
-// House (semi-transparent context shell)
+// PACCAR/WSU NET module shell, extracted from STEP dominant shell solids.
+// Axes: X = module length, Y = height, Z = north/south depth.
 // ----------------------------------------------------------------------
-export const WALL_HALF_W  = 2.6;                      // half width  (x)
-export const WALL_H       = 3.0;                      // wall height (y)
-export const DEPTH_HALF   = 2.0;                      // half depth  (z)
-export const GABLE_RISE   = 1.5;                      // ridge above wall top
-export const RIDGE_Y      = WALL_H + GABLE_RISE;      // 4.5 m
-export const FRONT_WALL_Z = DEPTH_HALF;               // 2.0 m — panel plane
-export const PANEL_CENTER_Y = 1.5;                    // panel centre height
+export const MODULE_L = 5.986;                        // m, long east-west axis
+export const MODULE_D = 3.363;                        // m, north-south depth
+export const MODULE_H = 2.896;                        // m, floor to roof top
+export const MODULE_WALL_T = 0.10;                    // visual shell thickness
+export const MODULE_ROOF_RISE = 0.035;                // very low roof crown
+export const MODULE_NORTH_Z = MODULE_D / 2;
+export const MODULE_SOUTH_Z = -MODULE_D / 2;
+export const MODULE_PANEL_Y = 1.34;                   // panel center height
+
+// Legacy panel-view mounting plane.
+export const WALL_HALF_W  = 2.6;
+export const WALL_H       = 3.0;
+export const DEPTH_HALF   = 2.0;
+export const GABLE_RISE   = 1.5;
+export const RIDGE_Y      = WALL_H + GABLE_RISE;
+export const FRONT_WALL_Z = 2.0;
+export const PANEL_CENTER_Y = 1.5;
 
 // ----------------------------------------------------------------------
 // Sensors — 12 total, all wind-speed + humidity + temperature
